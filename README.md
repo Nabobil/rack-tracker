@@ -52,7 +52,7 @@ Add it to your middleware stack
 config.middleware.use(Rack::Tracker) do
   handler :google_analytics, { tracker: 'U-XXXXX-Y' }
 end
-````
+```
 
 This will add Google Analytics as a tracking handler.
 
@@ -290,11 +290,11 @@ To enable GoSquared tracking:
 config.middleware.use(Rack::Tracker) do
   handler :go_squared, { tracker: 'ABCDEFGH' }
 end
-````
+```
 
 This will add the tracker to the page like so:
 
-``` javascript
+```javascript
   _gs('ABCDEFGH');
 ```
 
@@ -309,7 +309,7 @@ config.middleware.use(Rack::Tracker) do
     }
   }
 end
-````
+```
 
 This will add the specified trackers to the page like so:
 
@@ -369,7 +369,7 @@ It will render the following to the site source:
 
 #### Basic configuration
 
-```
+```ruby
 config.middleware.use(Rack::Tracker) do
   handler :criteo, { set_account: '1234' }
 end
@@ -386,7 +386,7 @@ Option values can be either static or dynamic by providing a lambda being reeval
 
 This will track a basic event:
 
-```
+```ruby
 def show
   tracker do |t|
     t.criteo :view_item, { item: 'P0001' }
@@ -396,7 +396,7 @@ end
 
 This will render to the follwing code in the JS:
 
-```
+```javascript
 window.criteo_q.push({"event": "viewItem", "item": "P001" });
 ```
 
@@ -404,7 +404,7 @@ The first argument for `t.criteo` is always the criteo event (e.g. `:view_item`,
 
 Another example
 
-```
+```ruby
 t.criteo :track_transaction, { id: 'id', item: { id: "P0038", price: "6.54", quantity: 1 } }
 ```
 
@@ -414,7 +414,7 @@ t.criteo :track_transaction, { id: 'id', item: { id: "P0038", price: "6.54", qua
 
 #### Basic Configuration
 
-```
+```ruby
 config.middleware.use(Rack::Tracker) do
   handler :zanox, { account_id: '1234' }
 end
@@ -424,7 +424,7 @@ end
 
 This is an example of a mastertag:
 
-```
+```ruby
 def show
   tracker do |t|
     t.zanox :mastertag, { id: "25GHTE9A07DF67DFG90T", category: 'Swimming', amount: '3.50' }
@@ -434,12 +434,12 @@ end
 
 This will render to the follwing code in the JS:
 
-```
+```javascript
 window._zx.push({"id": "25GHTE9A07DF67DFG90T"});
 ```
 
 and the following variables:
-```
+```javascript
 zx_category = 'Swimming';
 zx_amount = '3.50';
 ```
@@ -448,7 +448,7 @@ zx_amount = '3.50';
 
 This is an example of a lead event:
 
-```
+```ruby
 def show
   tracker do |t|
     t.zanox :lead, { order_i_d: 'DEFC-4321' }
@@ -458,7 +458,7 @@ end
 
 This is an example of a sale event:
 
-```
+```ruby
 def show
   tracker do |t|
     t.zanox :sale, { customer_i_d: '123456', order_i_d: 'DEFC-4321', currency_symbol: 'EUR', total_price: '150.00' }
@@ -507,7 +507,7 @@ Lets give it a try! We need to mount our new handler in the `Rack::Tracker` midd
   config.middleware.use(Rack::Tracker) do
     handler MyHandler, { awesome: true }
   end
-````
+```
 
 Everything you're passing to the `handler` will be available as `#options` in your
 template, so you'll also gain access to the `env`-hash belonging to the current request.
